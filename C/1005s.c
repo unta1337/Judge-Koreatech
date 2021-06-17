@@ -1,19 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// return redandancy count.
-int redundancyCountCheck(int *rc, int target, int minAbs, int size);
+int redundancyCountCheck(int *rc, int target, int minAbs, int size)
+{
+	int index = target + minAbs;
+	if (0 <= index && index < size)
+		return rc[index];
+	return 0;
+}
 
 int main(void)
 {
-	// input.
 	int n;
 	int *inputs;
 	scanf("%d", &n);
 	inputs = (int*)malloc(n * sizeof(int));
 	for (int i = 0; i < n; i++) scanf("%d", &inputs[i]);
 
-	// min, max from input.
 	int min = inputs[0];
 	int max = inputs[0];
 	for (int i = 0; i < n; i++)
@@ -28,7 +31,6 @@ int main(void)
 	int minAbs = min < 0 ? -min : min;
 	int maxAbs = max < 0 ? -max : max;
 
-	// redundancy counter.
 	int redundancySize = minAbs + maxAbs + 1;
 	int *redundancyCount = (int*)calloc(redundancySize, sizeof(int));
 	for (int i = 0; i < n; i++)
@@ -38,26 +40,21 @@ int main(void)
 		redundancyCount[index]++;
 	}
 
-	// counting 0s.
 	int zeroCount = 0;
 
 	int zeros = redundancyCountCheck(redundancyCount, 0, minAbs, redundancySize);
-	// if you have 3 0s, then you can make 0 with them.
 	if (zeros >= 3)
 		zeroCount++;
 
 	for (int i = 0; i < redundancySize; i++)
 	{
-		// no need to check if you don't have any 0s.
 		if (!zeros)
 			break;
 
-		// no need to check 0s.
 		int value = i - minAbs;
 		if (value >= 0)
 			break;
 
-		// if you have some neg num and its counterpart pos num, then you can make 0 with them.
 		int count = redundancyCountCheck(redundancyCount, value, minAbs, redundancySize);
 		if (count && redundancyCountCheck(redundancyCount, -value, minAbs, redundancySize))
 			zeroCount++;
@@ -65,18 +62,15 @@ int main(void)
 	
 	for (int i = 0; i < redundancySize; i++)
 	{
-		// no ndeed to check 0s.
 		int value = i - minAbs;
 		if (!value)
 			continue;
 
-		// if you have two or more neg nums and their counterpart pos num, then you can make 0 wiht them.
 		int count = redundancyCountCheck(redundancyCount, value, minAbs, redundancySize);
 		if ((count >= 2) && redundancyCountCheck(redundancyCount, -value * 2, minAbs, redundancySize))
 			zeroCount++;
 	}
 	
-	// 2 negs and 1 pos.
 	for (int i = 0; i < redundancySize; i++)
 	{
 		int value1 = i - minAbs;
@@ -100,7 +94,6 @@ int main(void)
 		}
 	}
 
-	// 2 pos' and 1 neg.
 	for (int i = 0; i < redundancySize; i++)
 	{
 		int value1 = i - minAbs;
@@ -124,20 +117,10 @@ int main(void)
 		}
 	}
 
-	// printing result.
 	printf("%d\n", zeroCount);
 
-	// free memories.
 	free(inputs);
 	free(redundancyCount);
 
-	return 0;
-}
-
-int redundancyCountCheck(int *rc, int target, int minAbs, int size)
-{
-	int index = target + minAbs;
-	if (0 <= index && index < size)
-		return rc[index];
 	return 0;
 }

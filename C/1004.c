@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 int intReverse(int input)
 {
     int result = 0;
