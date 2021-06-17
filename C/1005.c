@@ -1,3 +1,8 @@
+// URL: https://judge.koreatech.ac.kr/problem.php?id=1005
+// Memory Usage: 1984 KB
+// Runnig Time: 552 ms
+// Code Size: 2925 bytes
+
 #include <stdio.h>
 #include <stdlib.h>
 
