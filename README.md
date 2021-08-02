@@ -1,9 +1,33 @@
-Repo for Koreatech Online Judge.
+# 한국기술교육대학교 온라인 저지  
 
-## File name:  
+본 리포지토리는 각 문제가 하나의 폴더에 있는 형태로 저장되며 각 폴더에는 서로 다른 언어로 작성된 답이 저장됩니다.  
 
-Number: Problem no.  
-Without s: With comments.  
-With s: Actually submitted file.  
+숏코딩과 효율보단 문제 해결과 가독성을 중점으로 코드를 작성합니다.  
+(단, 특정 알고리즘을 활용해야 하는 문제의 경우 제외.)  
 
-note: informations like memory usage or running time are based on submitted one.  
+각 코드 파일의 최상단에는 문제 번호, 문제 이름, 문제 설명, 문제 링크 및 메모리 사용량, 실행 시간, 코드 용량에 대한 정보가 주석으로 작성됩니다.  
+
+코드 예시:  
+```
+// 1000: a+b
+/*
+ * 숫자 두 개가 표준 입력으로 주어질 때, 두 수의 합을 출력하는 프로그램을 만들어 주세요.
+*/
+// https://judge.koreatech.ac.kr/problem.php?id=1000
+
+// 메모리 사용량: 1200 KB
+// 실행 시간: 11 ms
+// 코드 용량: 328 bytes
+
+#include <stdio.h>
+
+int main(void)
+{
+    int i, j;
+    scanf("%d %d", &i, &j);
+
+    printf("%d\n", i + j);
+
+    return 0;
+}
+```
