@@ -64,18 +64,13 @@ si32* create_si32(int value)
     return this;
 }
 
+si32* delete_si32(si32* this)
+{
+    free(this);
+}
+
 int main()
 {
-    si32* demo = create_si32(0x10AB20CD);
-
-    demo->print(demo);
-    printf("%d\n", demo->value);
-
-    demo->convert_endian(demo);
-    printf("\n");
-
-    demo->print(demo);
-    printf("%d\n", demo->value);
 
     return 0;
 }
