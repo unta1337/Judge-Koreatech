@@ -9,8 +9,73 @@
 // 코드 용량: bytes
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct Signed_Integer_32
+{
+    int values[4];
+    int value;
+
+    void (*convert_endian)(struct Signed_Integer_32* this);
+    void (*print)(struct Signed_Integer_32* this);
+} si32;
+
+void si32_convert_endian(si32* this)
+{
+    for (int i = 0; i < 2; i++)
+    {
+        int temp = this->values[i];
+        this->values[i] = this->values[3 - i];
+        this->values[3 - i] = temp;
+    }
+
+    this->value = 0;
+    for (int i = 3; i >= 0; i--)
+    {
+        this->value += this->values[i];
+        if (i != 0)
+            this->value *= 0x100;
+    }
+}
+
+void si32_print(si32* this)
+{
+    for (int i = 0; i < 4; i++)
+        printf("%02X ", this->values[i]);
+    printf("\n");
+}
+
+si32* create_si32(int value)
+{
+    si32* this = (si32*)malloc(sizeof(si32));
+
+    int value_ = value;
+    for (int i = 0; i < 4; i++)
+    {
+        this->values[i] = value_ % 0x100;
+        value_ /= 0x100;
+    }
+    this->value = value;
+
+    this->convert_endian = si32_convert_endian;
+    this->print = si32_print;
+
+    return this;
+}
 
 int main()
 {
+    si32* demo = create_si32(0x10AB20CD);
+
+    demo->print(demo);
+    printf("%d\n", demo->value);
+
+    demo->convert_endian(demo);
+    printf("\n");
+
+    demo->print(demo);
+    printf("%d\n", demo->value);
+
     return 0;
 }
