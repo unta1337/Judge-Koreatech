@@ -64,7 +64,7 @@ si32* create_si32(int value)
     return this;
 }
 
-si32* delete_si32(si32* this)
+void delete_si32(si32* this)
 {
     free(this);
 }
