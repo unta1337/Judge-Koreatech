@@ -35,7 +35,7 @@ void si32_convert_endian(si32* this)
     {
         this->value += this->values[i];
         if (i != 0)
-            this->value *= 0x100;
+            this->value <<= 8;
     }
 }
 
@@ -50,11 +50,11 @@ si32* create_si32(int value)
 {
     si32* this = (si32*)malloc(sizeof(si32));
 
-    int value_ = value;
+    unsigned int value_ = (unsigned int)value;
     for (int i = 0; i < 4; i++)
     {
         this->values[i] = value_ % 0x100;
-        value_ /= 0x100;
+        value_ >>= 8;
     }
     this->value = value;
 
@@ -71,6 +71,26 @@ si32* delete_si32(si32* this)
 
 int main()
 {
+    int T;
+    scanf("%d", &T);
+
+    si32** inputs = (si32**)malloc(T * sizeof(si32*));
+
+    for (int i = 0; i < T; i++)
+    {
+        int input;
+        scanf("%d", &input);
+
+        inputs[i] = create_si32(input);
+        inputs[i]->convert_endian(inputs[i]);
+    }
+
+    for (int i = 0; i < T; i++)
+        printf("%d\n", inputs[i]->value);
+
+    for (int i = 0; i < T; i++)
+        delete_si32(inputs[i]);
+    free(inputs);
 
     return 0;
 }
