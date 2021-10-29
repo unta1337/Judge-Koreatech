@@ -4,9 +4,9 @@
  */
 // https://judge.koreatech.ac.kr/problem.php?id=1009
 
-// 메모리 사용량: KB
-// 실행 시간: ms
-// 코드 용량: bytes
+// 메모리 사용량: 1728 KB
+// 실행 시간: 6 ms
+// 코드 용량: 1989 bytes
 
 #include <stdio.h>
 #include <stdlib.h>
